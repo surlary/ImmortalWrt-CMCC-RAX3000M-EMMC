@@ -371,6 +371,7 @@ jobs:
           grep CONFIG_PACKAGE_kmod-nf-ipvs=y openwrt/.config
           find openwrt/bin/targets -name '*nf-ipvs*.ipk'
           find openwrt/bin/ -name "libip*tc2*.ipk"
+          find . >tree.log
 
       - name: 上传 .config
         uses: actions/upload-artifact@v4
@@ -378,6 +379,14 @@ jobs:
         with:
           name: OpenWrt_config
           path: openwrt/config
+
+      - name: 上传 tree
+        uses: actions/upload-artifact@v4
+        with:
+          name: tree
+          path: tree.log
+
+          
 
       - name: 编译固件
         id: compile
