@@ -336,6 +336,10 @@ jobs:
           $GITHUB_WORKSPACE/$DIY_P2_SH
           make defconfig
 
+      - name: 替换makefile
+        run: |
+          cp -f scripts/24.10-6.6/Makefile openwrt/feeds/packages/net/aria2/Makefile
+
       - name: 下载软件包
         id: package
         timeout-minutes: 30
@@ -379,7 +383,7 @@ jobs:
           name: OpenWrt_config
           path: openwrt/config
           
-
+          
       - name: 编译固件
         id: compile
         timeout-minutes: 180
