@@ -27,6 +27,8 @@ echo "CONFIG_PACKAGE_luci-app-openclash=y" >> .config
 echo "CONFIG_PACKAGE_luci-app-wechatpush=y" >> .config
 echo "CONFIG_PACKAGE_luci-i18n-wechatpush-zh-cn=y" >> .config
 
+
+
 # 删除 package/mtk/drivers/mt_wifi/files/mt7981-default-eeprom/e2p
 rm -f package/mtk/drivers/mt_wifi/files/mt7981-default-eeprom/e2p
 if [ $? -eq 0 ]; then
@@ -66,6 +68,8 @@ CONFIG_PACKAGE_kmod-ipvs-core=y
 CONFIG_PACKAGE_kmod-ipvs-rr=y
 CONFIG_PACKAGE_kmod-ipvs-wrr=y
 CONFIG_PACKAGE_kmod-ipvs-sh=y
+
+CONFIG_PACKAGE_aria2=y
 EOF
 
 make defconfig
