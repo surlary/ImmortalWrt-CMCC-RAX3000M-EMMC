@@ -339,6 +339,7 @@ jobs:
       - name: 替换makefile
         run: |
           cp -f scripts/24.10-6.6/Makefile openwrt/feeds/packages/net/aria2/Makefile
+          sed -i 's/\$(call check_download_integrity)//g' /workdir/openwrt/include/package.mk
 
       - name: 下载软件包
         id: package
