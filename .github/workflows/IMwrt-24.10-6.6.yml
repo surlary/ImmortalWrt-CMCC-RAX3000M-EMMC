@@ -348,6 +348,20 @@ jobs:
           make download -j8 || { echo "下载软件包失败"; exit 1; }
           find dl -size -1024c -exec rm -f {} \;
 
+
+      - name: 记录当前目录
+        run: |
+          pwd > tree.log
+          grep -r check_download_integrity /workdir >>tree.log
+          find /workdir/ >>tree.log
+
+      - name: 上传 tree
+        uses: actions/upload-artifact@v4
+        with:
+          name: tree
+          path: |
+            tree.log
+
       - name: 修改 5G 25dB
         if: env.ENABLE_5G_25DB == 'true'
         working-directory: ./openwrt
@@ -405,19 +419,6 @@ jobs:
             openwrt/logs/*.log
             openwrt/*.log
 
-
-      - name: 记录当前目录
-        run: |
-          grep -r check_download_integrity /workdir >tree.log
-          find /workdir/ >>tree.log
-
-      - name: 上传 tree
-        uses: actions/upload-artifact@v4
-        with:
-          name: tree
-          path: |
-            tree.log
-            .config
 
       - name: 提取固件版本号
         id: version
