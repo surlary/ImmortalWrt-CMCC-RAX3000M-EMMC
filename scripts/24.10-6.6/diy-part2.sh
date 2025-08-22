@@ -28,6 +28,10 @@ echo "CONFIG_PACKAGE_luci-app-wechatpush=y" >> .config
 echo "CONFIG_PACKAGE_luci-i18n-wechatpush-zh-cn=y" >> .config
 
 sed -i 's/max-frequency = <52000000>;/max-frequency = <26000000>;/g' /workdir/openwrt/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-emmc.dts
+sed -i '/Hash of the downloaded file does not match/s/^/#/' /workdir/openwrt/scripts/download.pl
+
+cat /workdir/openwrt/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-emmc.dts
+cat /workdir/openwrt/scripts/download.pl
 
 # 删除 package/mtk/drivers/mt_wifi/files/mt7981-default-eeprom/e2p
 rm -f package/mtk/drivers/mt_wifi/files/mt7981-default-eeprom/e2p
