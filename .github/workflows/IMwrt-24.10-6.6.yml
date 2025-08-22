@@ -356,12 +356,6 @@ jobs:
           grep -r check_download_integrity /workdir >>tree.log
           find /workdir/ >>tree.log
 
-      - name: 上传 tree
-        uses: actions/upload-artifact@v4
-        with:
-          name: tree
-          path: |
-            tree.log
 
       - name: 修改 5G 25dB
         if: env.ENABLE_5G_25DB == 'true'
@@ -405,7 +399,7 @@ jobs:
         run: |
           set -e
           cd openwrt
-          make -j1 V=s
+          make -j$(nproc) || make -j4 || make -j1 V=s
           echo "status=success" >> $GITHUB_OUTPUT
           echo "DEVICE_NAME=_${{ matrix.device_model }}" >> $GITHUB_ENV
           echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
@@ -420,6 +414,12 @@ jobs:
             openwrt/logs/*.log
             openwrt/*.log
 
+      - name: 上传 tree
+        uses: actions/upload-artifact@v4
+        with:
+          name: tree
+          path: |
+            /workdir/openwrt/bin/packages/aarch64_cortex-a53/packages/aria2_1.36.0-r3_aarch64_cortex-a53.ipk
 
       - name: 提取固件版本号
         id: version
