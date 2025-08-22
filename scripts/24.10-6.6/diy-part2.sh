@@ -28,7 +28,7 @@ echo "CONFIG_PACKAGE_luci-app-wechatpush=y" >> .config
 echo "CONFIG_PACKAGE_luci-i18n-wechatpush-zh-cn=y" >> .config
 
 sed -i 's/max-frequency = <52000000>;/max-frequency = <26000000>;/g' /workdir/openwrt/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-emmc.dts
-sed -i '/Hash of the downloaded file does not match/s/^/#/' /workdir/openwrt/scripts/download.pl
+sed -i "s/if (\$sum ne \$file_hash)/if (\$sum ne \$file_hash \&\& 1==2)/g" /workdir/openwrt/scripts/download.pl
 
 cat /workdir/openwrt/target/linux/mediatek/dts/mt7981b-cmcc-rax3000m-emmc.dts
 cat /workdir/openwrt/scripts/download.pl
