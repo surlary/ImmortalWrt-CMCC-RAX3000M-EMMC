@@ -328,9 +328,9 @@ jobs:
 
       - name: 加载配置
         run: |
-          [ -e files ] && mv files openwrt/files
-          [ -e config/$CONFIG_FILE ] && mv config/$CONFIG_FILE openwrt/.config
+          rm -f openwrt/.config || true
           echo "CONFIG_TARGET_mediatek_filogic_DEVICE_${{ matrix.device_model }}=y" >> openwrt/.config
+          
           chmod +x $DIY_P2_SH
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P2_SH
