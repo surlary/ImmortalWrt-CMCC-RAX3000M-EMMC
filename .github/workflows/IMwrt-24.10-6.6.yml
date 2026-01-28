@@ -333,6 +333,7 @@ jobs:
           echo "CONFIG_TARGET_mediatek_filogic_DEVICE_${{ matrix.device_model }}=y" >> openwrt/.config
           chmod +x $DIY_P2_SH
           cd openwrt
+          make allnoconfig
           $GITHUB_WORKSPACE/$DIY_P2_SH
           make defconfig
 
