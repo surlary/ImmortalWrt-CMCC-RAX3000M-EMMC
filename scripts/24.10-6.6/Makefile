@@ -7,15 +7,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aria2
-PKG_VERSION:=1.36.0
+PKG_VERSION:=1.37.0
 PKG_RELEASE:=3
 PKG_HASH:=6c9242b7e559772ae4b652708a58f403778d7a79bfd9d55c997427ef217e014b
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=http://45.146.234.183:8080/
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
+PKG_SOURCE_URL:=https://github.com/aria2/aria2/archive/b4fd7cb1ca03e38ad9d7ab9308b8200cb1d41c25.zip
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=gc-sections lto
+
+
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	cd $(PKG_BUILD_DIR) && curl -q https://raw.githubusercontent.com/surlary/aria2-static-build/ai/diff.patch | patch -p1
+endef
 
 PKG_MAINTAINER:=Imre Kaloz <kaloz@openwrt.org>, \
 	Hsing-Wang Liao <kuoruan@gmail.com>
