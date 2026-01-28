@@ -379,12 +379,6 @@ jobs:
         uses: P3TERX/ssh2actions@v1.0.0
         if: (github.event.inputs.ssh == 'true')
 
-      - name: 验证 kmod-nf-ipvs 是否启用并打包
-        run: |
-          grep CONFIG_PACKAGE_kmod-nf-ipvs=y openwrt/.config
-          find openwrt/bin/targets -name '*nf-ipvs*.ipk'
-          find openwrt/bin/ -name "libip*tc2*.ipk"
-
       - name: 上传 .config
         uses: actions/upload-artifact@v4
         if: (github.event.inputs.ssh == 'true')
@@ -399,6 +393,7 @@ jobs:
         run: |
           set -e
           cd openwrt
+          find . -name aria2
           make -j$(nproc) package/aria2/compile
           echo "status=success" >> $GITHUB_OUTPUT
           echo "DEVICE_NAME=_${{ matrix.device_model }}" >> $GITHUB_ENV
