@@ -40,8 +40,8 @@ else
   exit 1
 fi
 
-cat <<EOF >> .config
-CONFIG_PACKAGE_aria2=y
+cat <<EOF > .config
+CONFIG_PACKAGE_aria2=m
 EOF
 
 make defconfig
